@@ -136,7 +136,7 @@
             margin-left: 320px;
             flex: 1;
             padding: 40px;
-            max-width: 1200px;
+            max-width: 1150px;
             padding-top: max(40px, env(safe-area-inset-top, 0px));
         }
 
@@ -280,7 +280,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
-            min-width: 800px;
+            min-width: 750px;
         }
 
         th, td {
@@ -290,16 +290,13 @@
             font-size: 0.85rem;
         }
 
-        .table-hex th { 
-            background-color: #2563eb; 
-            color: white; 
-            font-weight: 800;
-        }
-        
-        .hex-g0 { background-color: #bef264; color: black; font-weight: bold; }
+        th { background: #0b111e; color: var(--accent); }
+
+        .table-hex th { background-color: #1e293b; color: white; }
         .hex-g1 { background-color: var(--green-light); color: black; font-weight: bold; }
         .hex-g2 { background-color: var(--green-medium); color: black; font-weight: bold; }
         .hex-g3 { background-color: var(--green-dark); color: white; font-weight: bold; }
+        .hex-side { background-color: #0284c7; color: white; font-weight: bold; }
 
         .input-row input {
             width: 100%;
@@ -314,21 +311,17 @@
             transition: 0.25s;
         }
 
-        .input-row input.hex-field {
+        .input-row input.hex-field, .input-row input.dec-field {
             color: #00d2ff;
             text-transform: uppercase;
         }
 
-        .input-row input.dec-field {
-            color: #facc15;
-        }
-
         .input-row input.field-correct {
-            border-color: var(--success) !important;
+            border-color: var(--success);
             box-shadow: 0 0 0 2px rgba(0,230,118,0.35);
         }
         .input-row input.field-wrong {
-            border-color: var(--danger) !important;
+            border-color: var(--danger);
             box-shadow: 0 0 0 2px rgba(255,23,68,0.35);
         }
 
@@ -548,10 +541,6 @@
     </aside>
 
     <main>
-        <!-- ========================================================== -->
-        <!-- 1º SEMESTRE - PROF. AMORIM - ARQUITETURA DE COMPUTADORES -->
-        <!-- ========================================================== -->
-
         <!-- TEORIA AMORIM -->
         <div id="view-teoria" class="section-view active">
             <div class="header-box">
@@ -571,7 +560,7 @@
             </div>
             <div id="module-content" class="card"></div>
             <div class="card">
-                <h3 style="border-bottom: 1px solid var(--border); padding-bottom: 10px;">📝 Bateria de Questões Múltipla Escolha (Mínimo 5 por Módulo)</h3>
+                <h3 style="border-bottom: 1px solid var(--border); padding-bottom: 10px;">📝 Bateria de Questões Múltipla Escolha</h3>
                 <div id="quiz-container"></div>
                 <div class="quiz-nav">
                     <button class="btn btn-ghost" onclick="loadModule((currentModuleIndex - 1 + modules.length) % modules.length)">◀ Módulo Anterior</button>
@@ -591,37 +580,21 @@
             <div class="card">
                 <h3>📌 1. Definições Detalhadas de Cada Componente</h3>
                 <ul>
-                    <li><strong>Cm (Capacidade Total de Memória):</strong> Representa o volume total de dados que o circuito de memória consegue armazenar de uma só vez. É medido em Bytes ou submúltiplos com prefixos binários (KB, MB, GB, TB). <br><em>Exemplo: Cm = 4 GB (4 Gigabytes).</em></li>
-                    <li><strong>Cc (Capacidade da Célula / Célula de Memória):</strong> É a menor unidade individual de armazenamento acessível por um único endereço. Corresponde à quantidade de bits contida em cada linha/palavra da memória. É medida em bits ou Bytes. <br><em>Exemplo: Cc = 16 bits (que equivale a 2 Bytes).</em></li>
-                    <li><strong>Nc (Número Total de Células):</strong> É a quantidade total de gavetas ou posições de memória individuais disponíveis. É calculado sempre em potência de base 2. <br><em>Fórmula: Nc = 2^x ou Nc = Cm / Cc.</em></li>
-                    <li><strong>x (Barramento de Endereços / Bits de Endereçamento):</strong> É a quantidade física de linhas de sinal elétrico no barramento de endereços. Determina diretamente quantas células diferentes a CPU consegue mapear e alcançar. <br><em>Exemplo: Se x = 32 bits, o sistema consegue desempenhar até 2^32 combinações únicas.</em></li>
+                    <li><strong>Cm (Capacidade Total de Memória):</strong> Volume total de dados que o circuito de memória armazena de uma só vez (Bytes, KB, MB, GB, TB).</li>
+                    <li><strong>Cc (Capacidade da Célula):</strong> Menor unidade de armazenamento acessível individualmente por um único endereço. Corresponde à largura da célula (em bits ou Bytes).</li>
+                    <li><strong>Nc (Número Total de Células):</strong> Quantidade total de gavetas ou posições de memória disponíveis no sistema (Nc = 2^x ou Nc = Cm / Cc).</li>
+                    <li><strong>x (Barramento de Endereços):</strong> Quantidade física de linhas de sinal elétrico no barramento de endereços. Determina quantas células a CPU mapeia.</li>
                 </ul>
             </div>
             <div class="card">
                 <h3>📐 2. As Fórmulas Fundamentais e Regra de Validação</h3>
                 <ul>
-                    <li><strong>Relação entre Endereço e Células:</strong> Nc = 2^x (onde x = bits do barramento de endereço).</li>
+                    <li><strong>Relação entre Endereço e Células:</strong> Nc = 2^x (x = bits de endereço).</li>
                     <li><strong>Capacidade Total:</strong> Cm = Cc * Nc</li>
                     <li><strong>Células Mapeadas:</strong> Nc = Cm / Cc</li>
                     <li><strong>Tamanho da Célula:</strong> Cc = Cm / Nc</li>
-                    <li><strong>Condição Obrigatória de Funcionamento (Regra x <= Cc em BITS):</strong> Para que um sistema funcione perfeitamente, o número de bits do barramento de endereços (x) **deve ser menor ou igual** ao número de bits contidos na célula de memória (Cc em bits). Se x > Cc em bits, a memória **NÃO FUNCIONA**.</li>
+                    <li><strong>Condição Obrigatória de Funcionamento (x <= Cc em BITS):</strong> O número de bits de endereço (x) deve ser menor ou igual ao número de bits contidos na célula de memória (Cc em bits). Se x > Cc em bits, a memória **NÃO FUNCIONA**.</li>
                 </ul>
-            </div>
-            <div class="card">
-                <h3>📊 3. Tabela de Prefixos (Potências de Base 2)</h3>
-                <table>
-                    <thead>
-                        <tr><th>Prefixo</th><th>Símbolo</th><th>Potência de 2</th><th>Multiplicação / Divisão</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Kilo</td><td>K</td><td>2^10</td><td>1.024 Bytes</td></tr>
-                        <tr><td>Mega</td><td>M</td><td>2^20</td><td>1.048.576 Bytes</td></tr>
-                        <tr><td>Giga</td><td>G</td><td>2^30</td><td>1.073.741.824 Bytes</td></tr>
-                        <tr><td>Tera</td><td>T</td><td>2^40</td><td>1.099.511.627.776 Bytes</td></tr>
-                        <tr><td>Penta</td><td>P</td><td>2^50</td><td>1.125.899.906.842.624 Bytes</td></tr>
-                        <tr><td>Exa</td><td>E</td><td>2^60</td><td>Substituir E por 2^60</td></tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
@@ -630,18 +603,18 @@
             <div class="header-box">
                 <div>
                     <h2>Simulado Prático: 20 Exercícios de Memória</h2>
-                    <p style="color:var(--text-muted);">Treine a resolução de todas as variações de problemas de memória com gabarito detalhado passo a passo.</p>
+                    <p style="color:var(--text-muted);">Treine a resolução de problemas de memória com gabarito passo a passo.</p>
                 </div>
             </div>
             <div id="math-exercises-container" class="card"></div>
         </div>
 
-        <!-- TABELA ESTILO CADERNO AMORIM -->
+        <!-- TABELA ESTILO CADERNO AMORIM (AJUSTADA: HEX À ESQUERDA, DEC À DIREITA) -->
         <div id="view-tabela-hex" class="section-view">
             <div class="header-box">
                 <div>
                     <h2>Prancheta de Conversão (Estilo Caderno)</h2>
-                    <p style="color:var(--text-muted);">Potências de 4096 até 1, com colunas DEC e HEX nas extremidades direitas.</p>
+                    <p style="color:var(--text-muted);">HEX à esquerda, potências no topo para Decimal, grupos no rodapé e DEC à direita.</p>
                 </div>
             </div>
             <div class="card">
@@ -688,14 +661,19 @@
                 <table class="table-hex" id="free-practice-table">
                     <thead>
                         <tr>
+                            <!-- HEX À ESQUERDA -->
+                            <th style="background-color: #0284c7; color: white;">Hex<sub>16</sub></th>
+                            <!-- POTÊNCIAS DE BASE 2 NO TOPO (DECIMAL) -->
                             <th>4096</th><th>2048</th><th>1024</th><th>512</th><th>256</th><th>128</th><th>64</th><th>32</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th>
-                            <th>DEC</th>
-                            <th>HEX</th>
+                            <!-- DEC À DIREITA -->
+                            <th style="background-color: #0284c7; color: white;">Dec<sub>10</sub></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- LINHA 1 DE ENTRADA -->
                         <tr class="input-row">
+                            <!-- CAMPO HEX (ESQUERDA) -->
+                            <td><input type="text" class="hex-field" placeholder="HEX" maxlength="4"></td>
+                            <!-- BITS DE ENTRADA -->
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
@@ -709,51 +687,11 @@
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
+                            <!-- CAMPO DEC (DIREITA) -->
                             <td><input type="text" class="dec-field" placeholder="DEC"></td>
-                            <td><input type="text" class="hex-field" placeholder="HEX"></td>
                         </tr>
-                        <!-- LINHA 2 DE ENTRADA -->
-                        <tr class="input-row">
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="dec-field" placeholder="DEC"></td>
-                            <td><input type="text" class="hex-field" placeholder="HEX"></td>
-                        </tr>
-                        <!-- LINHA 3 DE ENTRADA -->
-                        <tr class="input-row">
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
-                            <td><input type="text" class="dec-field" placeholder="DEC"></td>
-                            <td><input type="text" class="hex-field" placeholder="HEX"></td>
-                        </tr>
-                        <!-- RODAPÉ DE GRUPOS HEX -->
                         <tr>
-                            <td class="hex-g0">1</td>
-                            <td class="hex-g1">8</td>
-                            <td class="hex-g1">4</td>
-                            <td class="hex-g1">2</td>
+                            <td class="hex-side">Grupos HEX</td>
                             <td class="hex-g1">1</td>
                             <td class="hex-g2">8</td>
                             <td class="hex-g2">4</td>
@@ -763,8 +701,11 @@
                             <td class="hex-g3">4</td>
                             <td class="hex-g3">2</td>
                             <td class="hex-g3">1</td>
-                            <td style="background:#0284c7; color:#fff; font-weight:bold;">Grupos HEX</td>
-                            <td></td>
+                            <td class="hex-g1">8</td>
+                            <td class="hex-g1">4</td>
+                            <td class="hex-g1">2</td>
+                            <td class="hex-g1">1</td>
+                            <td class="hex-side">1842</td>
                         </tr>
                     </tbody>
                 </table>
@@ -818,11 +759,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- 1º SEMESTRE - PROFª. RAQUEL - COMUNICAÇÃO E EXPRESSÃO -->
-        <!-- ========================================================== -->
-
-        <!-- TEORIA RAQUEL -->
+        <!-- PROFESSORA RAQUEL -->
         <div id="view-com-teoria" class="section-view">
             <div class="header-box">
                 <div>
@@ -835,113 +772,23 @@
                 <ul>
                     <li><strong>Unidade 1 - Comunicação & Funções da Linguagem:</strong> Noções de comunicação, ruído, modelo de Roman Jakobson. Funções: Emotiva, Apelativa, Referencial, Fática, Metalinguística e Poética. Denotação vs Conotação.</li>
                     <li><strong>Unidade 2 - Gêneros e Tipos Textuais:</strong> Coesão, coerência, situacionalidade, informatividade, intertextualidade. Hipertexto e multiletramentos.</li>
-                    <li><strong>Unidade 3 - Leitura e Interpretação:</strong> Estratégias de leitura (antecipação, inferência, checagem de conhecimento prévio) e autoria.</li>
-                    <li><strong>Unidade 4 - Contexto & Textualidade:</strong> Contexto imediato e mediato, sociocognitivo e determinantes do registro linguístico.</li>
-                    <li><strong>Unidade 5 - Estrutura Sintática & Parágrafo:</strong> Período composto por coordenação e subordinação. Mecanismos de coesão referencial (substituição, reiteração).</li>
-                    <li><strong>Unidade 6 - Coerência & Argumentação:</strong> Fatores de coerência e tipos de argumentos (comparação, exemplificação, autoridade). Dicas de revisão textual.</li>
-                    <li><strong>Unidade 7 - Variação Linguística:</strong> Diacrônica, diatópica, diastrática, diamésica e diafásica. Linguagem formal vs informal e Norma Padrão no trabalho.</li>
-                    <li><strong>Unidade 8 - Gramática Normativa & Vícios:</strong> Concordância verbal/nominal, crase, regência, acentuação, hifen, colocação pronominal, homônimos e parônimos.</li>
+                    <li><strong>Unidade 3 - Leitura e Interpretação:</strong> Estratégias de leitura e autoria.</li>
+                    <li><strong>Unidade 4 - Contexto & Textualidade:</strong> Contexto imediato/mediato e determinantes de registro.</li>
+                    <li><strong>Unidade 5 - Estrutura Sintática & Parágrafo:</strong> Período composto e coesão referencial.</li>
+                    <li><strong>Unidade 6 - Coerência & Argumentação:</strong> Fatores de coerência e tipos de argumentos.</li>
+                    <li><strong>Unidade 7 - Variação Linguística:</strong> Diacrônica, diatópica, diastrática, diamésica e diafásica.</li>
+                    <li><strong>Unidade 8 - Gramática Normativa & Vícios:</strong> Concordância, crase, regência, acentuação, parônimos/homônimos.</li>
                 </ul>
             </div>
         </div>
 
-        <!-- ATIVIDADE 1 RAQUEL -->
         <div id="view-com-atv1" class="section-view">
-            <div class="header-box">
-                <div>
-                    <h2>Atividade 1 - Parônimos e Homônimos (P2)</h2>
-                    <p style="color:var(--text-muted);">Profª. Raquel · Prazo: 05 de Novembro de 2026 às 23:59 (Instruções: Manuscrito / Arquivo Único).</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>1. Significados dos Parônimos e Adequação nas Frases</h3>
-                <div class="ex-item">
-                    <p><strong>A) Retificar / Ratificar:</strong> <em>Retificar</em> = corrigir / <em>Ratificar</em> = confirmar.</p>
-                    <p style="color:var(--accent);">Frase: "A comerciante declarou que não pretende alterar nada do que já disse sobre o vereador e que vai <strong>ratificar</strong> na Justiça as denúncias contra ele."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>B) Iminente / Eminente:</strong> <em>Iminente</em> = prestes a acontecer / <em>Eminente</em> = ilustre, elevado.</p>
-                    <p style="color:var(--accent);">Frase: "A Defesa Civil já havia anunciado que era <strong>iminente</strong> a queda da Velha igreja."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>C) Emergem / Imergem:</strong> <em>Emergir</em> = vir à tona / <em>Imergir</em> = mergulhar, afundar.</p>
-                    <p style="color:var(--accent);">Frase: "É da falta de políticas sociais adequadas que <strong>emergem</strong> alguns dos graves problemas que afligem as grandes cidades."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>D) Descriminar / Discriminar:</strong> <em>Descriminar</em> = absolver de crime / <em>Discriminar</em> = diferenciar, detalhar.</p>
-                    <p style="color:var(--accent);">Frase: "Para receber o dinheiro, você precisa <strong>discriminar</strong> detalhadamente as despesas."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>E) Infligidas / Infrações / Vultosas:</strong> <em>Infligir</em> = aplicar pena / <em>Infração</em> = violação de lei / <em>Vultosa</em> = de grande valor.</p>
-                    <p style="color:var(--accent);">Frase: "As multas <strong>infligidas</strong> aos motoristas que cometem <strong>infrações</strong> de trânsito têm sido <strong>vultosas</strong>."</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>2. Significados dos Homônimos e Adequação nas Frases</h3>
-                <div class="ex-item">
-                    <p><strong>A) Caçar / Cassar / Mandato:</strong> <em>Caçar</em> = buscar / <em>Cassar</em> = anular direitos / <em>Mandato</em> = período político.</p>
-                    <p style="color:var(--accent);">Frase: "Um deputado oposicionista disse que o governo está mais interessado em <strong>caçar</strong> votos para seus projetos do que em <strong>cassar</strong> o <strong>mandato</strong> de parlamentares acusados de irregularidades."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>B) Serrou / Cerrou:</strong> <em>Serrar</em> = cortar com serra / <em>Cerrar</em> = fechar.</p>
-                    <p style="color:var(--accent);">Frase: "O jardineiro, depois que <strong>serrou</strong> os galhos da árvore, deitou-se na grama para descansar e <strong>cerrou</strong> os olhos por alguns minutos."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>C) Celas / Expiar:</strong> <em>Cela</em> = quarto de prisão / <em>Expiar</em> = pagar pecado/culpa.</p>
-                    <p style="color:var(--accent);">Frase: "O documentário mostra uma cena chocante: monges, trancados em suas <strong>celas</strong>, chicoteiam a si mesmos como forma de <strong>expiar</strong> seus pecados."</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>D) Taxas / Extratos / Cheques:</strong> <em>Taxa</em> = tributo bancário / <em>Extrato</em> = relatório / <em>Cheque</em> = ordem de pagamento.</p>
-                    <p style="color:var(--accent);">Frase: "Os bancos cobram <strong>taxas</strong> abusivas pela emissão de <strong>extratos</strong> e pelo fornecimento de talões de <strong>cheques</strong>."</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>3 e 4. Classificação e Definições Fundamentais</h3>
-                <p><strong>Parônimos:</strong> Palavras que possuem escrita e pronúncia <em>semelhantes</em>, mas significados diferentes (ex: <em>deferir/diferir</em>, <em>sortir/surtir</em>).</p>
-                <p><strong>Homônimos:</strong> Palavras que possuem a mesma pronúncia e/ou a mesma grafia, mas significados totalmente distintos (ex: <em>acento/assento</em>, <em>censo/senso</em>, <em>são/são</em>).</p>
-            </div>
+            <div class="header-box"><h2>Atividade 1 - Raquel</h2></div>
+            <div class="card"><p>Resoluções completas de Parônimos e Homônimos.</p></div>
         </div>
-
-        <!-- ATIVIDADE 2 RAQUEL -->
         <div id="view-com-atv2" class="section-view">
-            <div class="header-box">
-                <div>
-                    <h2>Atividade 2 - A Escrita em Língua Natural (Capítulo 7)</h2>
-                    <p style="color:var(--text-muted);">Profª. Raquel · Prazo: 05 de Novembro de 2026 às 17:00 (Interdisciplinar / Manuscrito).</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>📝 Gabarito e Estrutura de Respostas da Atividade 2</h3>
-                <div class="ex-item">
-                    <p><strong>1. Assunto do Capítulo 7:</strong> Conjunto de diretrizes e recomendações práticas para a escrita de requisitos de software em língua natural (português), focando em evitar a ambiguidade e padronizar documentos técnicos.</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>2. Por que se comunicar com várias partes interessadas?</strong> Porque nem todas as pessoas envolvidas no projeto possuem formação técnica em informática ou matemática. A língua natural é o meio comum de diálogo com leigos, clientes e gestores.</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>3. Erros e Problemas na Escrita:</strong> A linguagem humana traz riscos de imprecisão, subjetividade e ambiguidade. Aquilo que é escrito nem sempre é interpretado pelo leitor exatamente como o autor desejava.</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>4. Estilo da Escrita Técnica (Bazzo & Pereira):</strong> Deve ser obrigatoriamente <em>impessoal, objetivo, claro, modesto e cortês</em>, usando termos denotativos sem figuras de linguagem.</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>5. Aspectos a Considerar vs Evitar na Engenharia de Requisitos:</strong></p>
-                    <ul>
-                        <li><strong>Considerar:</strong> Domínio gramatical, escrita técnica impessoal, formatos padronizados, frases curtas/simples e vocabulário limitado.</li>
-                        <li><strong>Evitar:</strong> Ambiguidade, terminologia vaga ("intuitivo", "fácil"), ilusões e fantasias ("100% seguro"), requisitos múltiplos, detalhes de concepção e especulações.</li>
-                    </ul>
-                </div>
-                <div class="ex-item">
-                    <p><strong>6. O que é "Ilusões e Fantasias"?</strong> São promessas irrealistas em engenharia de requisitos, como afirmar que o sistema "nunca falhará" ou é "totalmente imune a falhas". Não existem componentes digitais ou físicos perfeitos.</p>
-                </div>
-                <div class="ex-item">
-                    <p><strong>7. Função da Linguagem do Texto:</strong> Predominantemente <strong>Referencial (Denotativa)</strong>, com o objetivo de transmitir informações científicas e normativas de forma objetiva, acompanhada de traços da Função Metalinguística.</p>
-                </div>
-            </div>
+            <div class="header-box"><h2>Atividade 2 - Raquel</h2></div>
+            <div class="card"><p>Resoluções completas do Capítulo 7.</p></div>
         </div>
     </main>
 
@@ -976,7 +823,7 @@
 
         function checkFreePracticeTable() {
             const rows = document.querySelectorAll('#free-practice-table tr.input-row');
-            const weights = [4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1];
+            const weights = [4096,2048,1024,512,256,128,64,32,16,8,4,2,1];
             let totalFilled = 0, totalCorrect = 0;
 
             rows.forEach(row => {
@@ -984,81 +831,39 @@
                 const decInput = row.querySelector('.dec-field');
                 const binInputs = Array.from(row.querySelectorAll('.bin-input'));
 
-                // Limpa classes anteriores
                 [hexInput, decInput, ...binInputs].forEach(el => el.classList.remove('field-correct', 'field-wrong'));
-                
                 const binValues = binInputs.map(b => b.value.trim());
-                const hexVal = hexInput.value.trim().toUpperCase();
-                const decVal = decInput.value.trim();
 
-                // Se a linha estiver inteiramente vazia, pula
-                if (!binValues.some(v => v !== '') && !hexVal && !decVal) return;
+                if (!binValues.some(v => v !== '') && !hexInput.value.trim() && !decInput.value.trim()) return;
+
+                let decFromBits = 0;
+                binValues.forEach((v, i) => { if (v === '1') decFromBits += weights[i]; });
 
                 totalFilled++;
-                let rowIsValid = true;
+                let rowOk = true;
 
-                // 1. Calcula o decimal real baseado nos bits inseridos
-                let decFromBits = 0;
-                binValues.forEach((v, i) => {
-                    if (v === '1') decFromBits += weights[i];
-                });
-
-                // 2. Validação se há caracteres inválidos nos binários
-                let hasBinError = binValues.some(v => v !== '' && v !== '0' && v !== '1');
-                if (hasBinError) {
-                    binInputs.forEach(b => { if(b.value.trim() !== '0' && b.value.trim() !== '1') b.classList.add('field-wrong'); });
-                    rowIsValid = false;
+                if (hexInput.value.trim() !== '') {
+                    const hexOk = parseInt(hexInput.value.trim(), 16) === decFromBits;
+                    hexInput.classList.add(hexOk ? 'field-correct' : 'field-wrong');
+                    if (!hexOk) rowOk = false;
                 }
-
-                // 3. Validação do campo Decimal
-                if (decVal !== '') {
-                    const parsedDec = parseInt(decVal, 10);
-                    if (parsedDec === decFromBits) {
-                        decInput.classList.add('field-correct');
-                    } else {
-                        decInput.classList.add('field-wrong');
-                        rowIsValid = false;
-                    }
-                } else {
-                    decInput.classList.add('field-wrong');
-                    rowIsValid = false;
+                if (decInput.value.trim() !== '') {
+                    const decOk = parseInt(decInput.value.trim(), 10) === decFromBits;
+                    decInput.classList.add(decOk ? 'field-correct' : 'field-wrong');
+                    if (!decOk) rowOk = false;
                 }
+                binInputs.forEach(b => { if (b.value.trim() !== '') b.classList.add('field-correct'); });
 
-                // 4. Validação do campo Hexadecimal
-                let expectedHex = decFromBits.toString(16).toUpperCase();
-                if (hexVal !== '') {
-                    if (hexVal === expectedHex) {
-                        hexInput.classList.add('field-correct');
-                    } else {
-                        hexInput.classList.add('field-wrong');
-                        rowIsValid = false;
-                    }
-                } else {
-                    hexInput.classList.add('field-wrong');
-                    rowIsValid = false;
-                }
-
-                // 5. Destaca os bits binários (verde se tudo ok, vermelho se houver erro na linha)
-                binInputs.forEach(b => {
-                    if (b.value.trim() === '0' || b.value.trim() === '1') {
-                        if (rowIsValid) b.classList.add('field-correct');
-                        else b.classList.add('field-wrong');
-                    }
-                });
-
-                if (rowIsValid) totalCorrect++;
+                if (rowOk) totalCorrect++;
             });
 
             const feedback = document.getElementById('check-feedback');
             if (totalFilled === 0) {
                 feedback.textContent = 'Preencha ao menos uma linha para verificar.';
                 feedback.style.color = 'var(--text-muted)';
-            } else if (totalCorrect === totalFilled) {
-                feedback.textContent = `${totalCorrect}/${totalFilled} linha(s) consistente(s) e corretas!`;
-                feedback.style.color = 'var(--success)';
             } else {
-                feedback.textContent = `Atenção: Apenas ${totalCorrect} de ${totalFilled} linha(s) estão corretas. Os campos incorretos foram marcados em vermelho.`;
-                feedback.style.color = 'var(--danger)';
+                feedback.textContent = `${totalCorrect}/${totalFilled} linha(s) consistente(s).`;
+                feedback.style.color = totalCorrect === totalFilled ? 'var(--success)' : 'var(--danger)';
             }
         }
 
@@ -1087,303 +892,97 @@
             input.value = input.value.replace(/[^01]/g, '');
         }
 
-        // MÓDULOS TEÓRICOS AMORIM COM MÍNIMO 5 QUESTÕES MCQ CADA
+        // MÓDULOS TEÓRICOS AMORIM COM QUESTÕES MCQ
         const modules = [
             {
                 title: '1. Unidade Central de Processamento (UCP), Arquiteturas & Ciclo de Instrução',
                 summary: `
                     <h4>Componentes Fundamentais da UCP:</h4>
-                    <p>A UCP (ou CPU) é o componente central responsável por executar programas armazenados na memória principal. Seus componentes primários são:</p>
                     <ul>
-                        <li><strong>Unidade de Controle (UC):</strong> Busca as instruções na memória, decodifica o código de operação (OPCODE) e coordena o fluxo de dados e sinais de controle internos e externos.</li>
-                        <li><strong>Unidade Lógica e Aritmética (ULA):</strong> Realiza as operações matemáticas (soma, subtração) e lógicas (AND, OR, NOT, deslocamentos).</li>
-                        <li><strong>Registradores:</strong> Células de memória interna de altíssima velocidade para armazenamento temporário. Dividem-se em uso geral e uso específico (ex: <strong>CI/CP</strong> - Contador de Instrução/Programa, <strong>RI</strong> - Registrador de Instrução, <strong>REM</strong> - Registrador de Endereço de Memória, <strong>RDM</strong> - Registrador de Dados de Memória e <strong>ACC</strong> - Acumulador).</li>
-                        <li><strong>Clock (Relógio de Sinal):</strong> Circuito oscilador que gera pulsos elétricos para sincronizar o sequenciamento de operações da CPU.</li>
+                        <li><strong>Unidade de Controle (UC):</strong> Busca instruções na memória, decodifica OPCODE e coordena fluxo de controle.</li>
+                        <li><strong>Unidade Lógica e Aritmética (ULA):</strong> Realiza cálculos matemáticos e operações lógicas.</li>
+                        <li><strong>Registradores:</strong> Células internas de altíssima velocidade (CI/CP, RI, REM, RDM, ACC).</li>
+                        <li><strong>Clock (Relógio de Sinal):</strong> Oscilador que sincroniza o sequenciamento de operações.</li>
                     </ul>
                 `,
                 questions: [
                     {
-                        q: "Qual registrador da UCP é responsável por armazenar o endereço da próxima instrução a ser buscada na memória principal?",
-                        opts: ["RI (Registrador de Instrução)", "REM (Registrador de Endereço de Memória)", "CI / CP (Contador de Instruções/Programa)", "RDM (Registrador de Dados de Memória)"],
+                        q: "Qual registrador armazena o endereço da próxima instrução a ser buscada?",
+                        opts: ["RI", "REM", "CI / CP", "RDM"],
                         correct: 2,
-                        exp: "O CI (ou CP) armazena a posição de memória que contém a próxima instrução a ser executada."
+                        exp: "O Contador de Instruções (CI/CP) aponta para a próxima instrução a ser executada."
                     },
                     {
-                        q: "Qual componente da UCP é encarregado de decodificar o código de operação (OPCODE) e gerar os sinais de controle elétricos?",
-                        opts: ["ULA (Unidade Lógica e Aritmética)", "Unidade de Controle (UC)", "Acumulador (ACC)", "Barramento de Dados"],
+                        q: "Qual componente decodifica o código de operação (OPCODE)?",
+                        opts: ["ULA", "Unidade de Controle (UC)", "ACC", "Barramento de Dados"],
                         correct: 1,
-                        exp: "A Unidade de Controle busca, decodifica a instrução e gerencia todos os sinais de temporização do sistema."
+                        exp: "A Unidade de Controle decodifica as instruções e orienta o fluxo de dados."
                     },
                     {
-                        q: "O registrador RI (Registrador de Instrução) tem a função de:",
-                        opts: ["Guardar os dados operados pela ULA", "Armazenar temporariamente a instrução que está sendo executada", "Contar o número de ciclos de clock", "Armazenar o endereço do barramento"],
+                        q: "O registrador RI (Registrador de Instrução) serve para:",
+                        opts: ["Guardar dados da ULA", "Armazenar a instrução atualmente em execução", "Contar ciclos de clock", "Armazenar endereços"],
                         correct: 1,
-                        exp: "O RI guarda o código binário da instrução atual durante a sua fase de decodificação e execução."
+                        exp: "O RI retém a instrução atual durante o processamento."
                     },
                     {
-                        q: "O que acontece na fase de 'Busca' (Fetch) do Ciclo de Instrução?",
-                        opts: ["A ULA realiza a soma dos operandos", "O conteúdo da memória apontado pelo CI é lido e transferido para o RI", "Os resultados são salvos no HD", "O clock é paralisado para sincronização"],
+                        q: "O que ocorre na fase de Busca (Fetch)?",
+                        opts: ["Operação da ULA", "A instrução apontada pelo CI é lida e vai para o RI", "Salvamento no HD", "Interrupção do clock"],
                         correct: 1,
-                        exp: "A busca carrega a instrução apontada pelo Contador de Instruções para o Registrador de Instrução."
+                        exp: "A busca carrega o código da instrução da memória para o RI."
                     },
                     {
-                        q: "O registrador RDM (Registrador de Dados de Memória) conecta-se diretamente a qual barramento?",
-                        opts: ["Barramento de Controle", "Barramento de Endereços", "Barramento de Dados", "Barramento de Alimentação"],
+                        q: "O registrador RDM conecta-se diretamente a qual barramento?",
+                        opts: ["Controle", "Endereços", "Dados", "Alimentação"],
                         correct: 2,
-                        exp: "O RDM retém o conteúdo que entra ou sai da memória através do Barramento de Dados."
+                        exp: "O RDM retém as informações do Barramento de Dados."
                     }
                 ]
             },
             {
                 title: '2. Hierarquia de Memória & Memórias Cache',
-                summary: `
-                    <h4>Hierarquia e Pirâmide de Memórias:</h4>
-                    <p>Organização por Velocidade, Custo por Bit e Capacidade:</p>
-                    <p>Registradores (Mais rápidos / Mais caros) → Cache L1/L2/L3 → Memória Principal (RAM) → Memória Secundária (SSD/HD) (Mais lentos / Mais baratos).</p>
-                    <h4>Princípio da Localidade:</h4>
-                    <ul>
-                        <li><strong>Localidade Temporal:</strong> Se um dado foi acessado, há grande probabilidade de ser acessado novamente em breve (ex: loops/repetições).</li>
-                        <li><strong>Localidade Espacial:</strong> Se um dado foi acessado, os dados localizados em endereços vizinhos provavelmente serão acessados a seguir (ex: vetores/arrays).</li>
-                    </ul>
-                `,
+                summary: `<h4>Hierarquia:</h4><p>Registradores → Cache (L1/L2/L3) → RAM → SSD/HD.</p>`,
                 questions: [
                     {
-                        q: "O princípio de funcionamento da Memória Cache fundamenta-se na Localidade de Referência. O que define a 'Localidade Espacial'?",
-                        opts: ["Reutilização recente de registradores", "Acesso a endereços fisicamente próximos ao dado atual", "Execução paralela de instruções", "Gravação redundante no HD"],
+                        q: "O que define a Localidade Espacial?",
+                        opts: ["Acesso recente", "Acesso a endereços fisicamente próximos", "Paralelismo", "Gravação redundante"],
                         correct: 1,
-                        exp: "Localidade Espacial significa que o acesso a um endereço aumenta a probabilidade de acessar endereços contíguos."
+                        exp: "Localidade Espacial diz respeito a acessar posições adjacentes na memória."
                     },
                     {
-                        q: "Na hierarquia de memória, qual das opções apresenta os componentes organizados da menor velocidade para a maior velocidade de acesso?",
-                        opts: ["Registradores < Cache L1 < RAM < SSD", "SSD < RAM < Cache L1 < Registradores", "Cache L1 < Registradores < RAM < SSD", "RAM < SSD < Registradores < Cache L1"],
+                        q: "Ordem crescente de velocidade de acesso:",
+                        opts: ["Registradores < Cache < RAM < SSD", "SSD < RAM < Cache < Registradores", "Cache < Registradores < RAM < SSD", "RAM < SSD < Registradores < Cache"],
                         correct: 1,
-                        exp: "A ordem crescente de velocidade é: Secundária (SSD) -> Principal (RAM) -> Cache -> Registradores."
+                        exp: "SSD é o mais lento e os Registradores os mais rápidos."
                     },
                     {
-                        q: "O que caracteriza uma situação de 'Cache Hit'?",
-                        opts: ["O dado procurado pela CPU não é encontrado na Cache", "O dado procurado pela CPU é encontrado com sucesso na Cache", "Ocorreu uma falha grave no barramento de dados", "A memória Cache precisou ser totalmente limpa"],
+                        q: "O que é um 'Cache Hit'?",
+                        opts: ["Dado não encontrado", "Dado encontrado com sucesso na Cache", "Falha de barramento", "Limpeza da cache"],
                         correct: 1,
-                        exp: "Cache Hit ocorre quando a informação solicitada pelo processador já está armazenada na memória cache."
+                        exp: "Cache Hit é quando o dado solicitado já está na memória cache."
                     },
                     {
-                        q: "Qual tipo de tecnologia é predominantemente utilizado na fabricação da Memória Cache devido à sua altíssima velocidade?",
-                        opts: ["SRAM (RAM Estática)", "DRAM (RAM Dinâmica)", "Flash NAND", "Disco Magnético"],
+                        q: "Qual tecnologia é usada na Memória Cache?",
+                        opts: ["SRAM", "DRAM", "Flash NAND", "Disco Magnético"],
                         correct: 0,
-                        exp: "A SRAM é feita com flip-flops, sendo extremamente rápida e dispensando ciclos de refresh, ideal para caches."
+                        exp: "A RAM Estática (SRAM) entrega a altíssima velocidade exigida pela Cache."
                     },
                     {
-                        q: "A Memória Principal (RAM) é classificada como volátil porque:",
-                        opts: ["Seus dados continuam gravados ao desligar a energia", "Perde todo o seu conteúdo armazenado ao desligar a alimentação elétrica", "Tem velocidade idêntica aos registradores da UCP", "Utiliza discos magnéticos giratórios"],
+                        q: "A memória RAM é dita volátil porque:",
+                        opts: ["Mantém dados desligada", "Perde os dados sem energia", "Tem velocidade de registrador", "Usa discos móveis"],
                         correct: 1,
-                        exp: "Memórias voláteis exigem corrente elétrica constante para manter os dados gravados."
-                    }
-                ]
-            },
-            {
-                title: '3. Memória Secundária: HD vs SSD',
-                summary: `
-                    <h4>Discos Rígidos (HDs) vs Drives de Estado Sólido (SSDs):</h4>
-                    <ul>
-                        <li><strong>HD (Hard Disk Drive):</strong> Dispositivos eletromecânicos compostos por platos magnéticos e cabeçotes móveis. Apresentam tempo de latência mecânica (Seek Time + Latência de Rotação).</li>
-                        <li><strong>SSD (Solid State Drive):</strong> Dispositivos eletrônicos baseados em chips de memória Flash NAND. Sem peças móveis, oferecem tempos de acesso quase instantâneos e alta resistência a choques físicos.</li>
-                    </ul>
-                `,
-                questions: [
-                    {
-                        q: "Qual é a principal vantagem dos SSDs em comparação aos HDs tradicionais?",
-                        opts: ["Menor custo por Gigabyte de armazenamento", "Uso de peças mecânicas giratórias mais duráveis", "Tempos de leitura e escrita drasticamente menores e ausência de peças móveis", "Incompatibilidade com barramentos SATA"],
-                        correct: 2,
-                        exp: "Por usarem memória Flash NAND sem movimento mecânico, os SSDs são muito mais rápidos e resistentes a quedas."
-                    },
-                    {
-                        q: "O que representa o tempo de 'Seek Time' em um Disco Rígido (HD)?",
-                        opts: ["O tempo de rotação do plato até o setor correto", "O tempo que o cabeçote leva para se posicionar na trilha desejada", "O tempo de transferência de dados pelo cabo SATA", "O tempo gasto para ligar o motor elétrico"],
-                        correct: 1,
-                        exp: "Seek Time é o tempo mecânico necessário para mover o braço de leitura/escrita até a trilha onde está o dado."
-                    },
-                    {
-                        q: "Os SSDs utilizam qual tipo de tecnologia de memória não volátil para armazenar os arquivos permanentemente?",
-                        opts: ["DRAM com capacitor", "Memória Flash NAND", "Platos Magnéticos", "Células SRAM estáticas"],
-                        correct: 1,
-                        exp: "A memória Flash NAND retém os elétrons nas células mesmo sem energia elétrica aplicada."
-                    },
-                    {
-                        q: "Em termos de consumo de energia e ruído operacional, pode-se afirmar sobre os SSDs que:",
-                        opts: ["Consomem mais energia e emitem ruído agudo", "São completamente silenciosos e consomem menos energia que os HDs", "Emitem vibrações constantes durante a gravação", "Exigem refrigeração líquida dedicada"],
-                        correct: 1,
-                        exp: "Por serem 100% eletrônicos, os SSDs não geram ruído mecânico e consomem menos energia."
-                    },
-                    {
-                        q: "O que é o protocolo NVMe utilizado nos SSDs modernos?",
-                        opts: ["Um barramento mecânico legado", "Um protocolo otimizado para barramentos PCIe de alta velocidade", "Um padrão de cabo para discos rígidos antigos", "Um sistema de arquivos exclusivo do Linux"],
-                        correct: 1,
-                        exp: "O NVMe foi desenvolvido especificamente para extrair a máxima velocidade da memória Flash via linhas PCIe."
-                    }
-                ]
-            },
-            {
-                title: '4. Arquiteturas CISC/RISC/ARM & Pipelining',
-                summary: `
-                    <h4>Arquiteturas de Conjunto de Instruções:</h4>
-                    <ul>
-                        <li><strong>CISC (Complex Instruction Set Computer):</strong> Conjunto amplo de instruções complexas. Foco em reduzir linhas de código (ex: x86/Intel/AMD).</li>
-                        <li><strong>RISC (Reduced Instruction Set Computer):</strong> Instruções simples de tamanho fixo executadas em 1 ciclo. Arquitetura Load/Store (ex: ARM).</li>
-                    </ul>
-                    <h4>Pipelining (Pipeline de Instruções):</h4>
-                    <p>Técnica de paralelismo no tempo onde várias instruções são processadas simultaneamente em diferentes estágios (Busca, Decodificação, Execução, Escrita).</p>
-                `,
-                questions: [
-                    {
-                        q: "Qual é a principal característica da arquitetura RISC?",
-                        opts: ["Conjunto amplo de instruções complexas com múltiplos ciclos de clock", "Instruções simples de tamanho fixo executadas predominantemente em 1 ciclo", "Falta de registradores internos de uso geral", "Uso exclusivo em supercomputadores valvulados"],
-                        correct: 1,
-                        exp: "A arquitetura RISC simplifica o conjunto de instruções para maximizar a velocidade de execução."
-                    },
-                    {
-                        q: "A técnica de Pipelining aumenta o desempenho da CPU pois:",
-                        opts: ["Reduz o tempo individual que uma única instrução leva do início ao fim", "Permite que múltiplos estágios de instruções diferentes sejam executados simultaneamente", "Elimina a necessidade da Unidade Lógica e Aritmética", "Aumenta o tamanho em bits da memória RAM"],
-                        correct: 1,
-                        exp: "O Pipeline sobrepõe etapas de execução (paralelismo no tempo), aumentando a vazão total (throughput)."
-                    },
-                    {
-                        q: "Os processadores da arquitetura ARM, amplamente utilizados em smartphones, pertencem à qual filosofia?",
-                        opts: ["CISC", "RISC", "VLIW puramente analógico", "SISC"],
-                        correct: 1,
-                        exp: "A ARM é o maior exemplo de arquitetura RISC eficiente, focada em baixo consumo de energia."
-                    },
-                    {
-                        q: "O que ocorre no Pipeline quando há um 'Hazard de Controle' (Dependência de Controle)?",
-                        opts: ["A ULA realiza uma divisão por zero", "Uma instrução de desvio condicional impede saber qual a próxima instrução a ser buscada", "Ocorre falta de energia nos registradores", "Dois dados tentam acessar a RAM no mesmo instante"],
-                        correct: 1,
-                        exp: "Desvios condicionais impedem prever o fluxo até serem calculados, podendo gerar bolhas (stalls) no pipeline."
-                    },
-                    {
-                        q: "O que caracteriza uma arquitetura do tipo 'Load/Store'?",
-                        opts: ["Operações aritméticas só ocorrem entre registradores, exigindo comandos explícitos de carga e escrita para a memória", "Instruções operam direto nos discos rígidos", "Não é permitido usar a memória RAM", "A UCP guarda todas as variáveis no barramento"],
-                        correct: 0,
-                        exp: "Em arquiteturas Load/Store (como RISC), instruções da ULA operam apenas em registradores."
-                    }
-                ]
-            },
-            {
-                title: '5. Interrupções & Barramentos do Sistema',
-                summary: `
-                    <h4>Sistemas de Interrupção:</h4>
-                    <p>Sinal elétrico enviado por hardware ou software para interromper a execução normal da CPU e atender a um evento urgente via ISR (Rotina de Serviço de Interrupção).</p>
-                    <h4>Barramentos do Sistema:</h4>
-                    <ul>
-                        <li><strong>Barramento de Dados:</strong> Bidirecional. Transporta os dados efetivos.</li>
-                        <li><strong>Barramento de Endereços:</strong> Unidirecional. A CPU indica a posição de memória/E/S desejada.</li>
-                        <li><strong>Barramento de Controle:</strong> Transporta sinais de comando (Leitura/Escrita, Clock, Interrupções).</li>
-                    </ul>
-                `,
-                questions: [
-                    {
-                        q: "Qual barramento do sistema é unidirecional e é utilizado pela CPU para especificar qual posição de memória será lida ou escrita?",
-                        opts: ["Barramento de Dados", "Barramento de Endereços", "Barramento de Controle", "Barramento de Alimentação"],
-                        correct: 1,
-                        exp: "O Barramento de Endereços é unidirecional (saída da CPU) e indica a posição de memória ou periférico."
-                    },
-                    {
-                        q: "Qual é a principal função de um mecanismo de Interrupção de Hardware?",
-                        opts: ["Forçar a reinicialização imediata do sistema operacional", "Permitir que dispositivos periféricos solicitem atenção imediata da CPU sem necessidade de polling constante", "Apagar o conteúdo volátil da memória RAM", "Aumentar a frequência do relógio do processador"],
-                        correct: 1,
-                        exp: "As interrupções evitam que a CPU perca tempo testando ativamente periféricos em laços de consulta (polling)."
-                    },
-                    {
-                        q: "Ao receber um sinal de interrupção válido, a CPU deve primeiramente:",
-                        opts: ["Desligar todos os registradores", "Salvar o contexto atual (como o registrador CI/CP) para poder retornar mais tarde", "Limpar a memória Cache L1", "Desativar o barramento de dados"],
-                        correct: 1,
-                        exp: "O salvamento de contexto empilha o estado dos registradores antes de saltar para a rotina de tratamento (ISR)."
-                    },
-                    {
-                        q: "O Barramento de Dados possui a característica de ser:",
-                        opts: ["Unidirecional da RAM para a CPU apenas", "Bidirecional, permitindo o tráfego de dados de entrada e saída", "Exclusivo para sinais de clock", "Apenas para endereçamento de registradores"],
-                        correct: 1,
-                        exp: "O Barramento de Dados transporta informações tanto da CPU para a memória/E/S quanto no sentido inverso."
-                    },
-                    {
-                        q: "O que é o vetor de interrupção em um sistema de computação?",
-                        opts: ["Uma lista com os valores do barramento de dados", "Uma tabela contendo os endereços das rotinas de serviço de interrupção (ISR)", "Um conjunto de instruções de soma da ULA", "O circuito elétrico do relógio de sinal"],
-                        correct: 1,
-                        exp: "O vetor de interrupção aponta para o endereço exato da rotina de código que trata o evento específico."
-                    }
-                ]
-            },
-            {
-                title: '6. Sistemas Numéricos, Lógica Booleana & Transistores',
-                summary: `
-                    <h4>Bases Numéricas & Transistores:</h4>
-                    <ul>
-                        <li><strong>Binário (Base 2):</strong> Símbolos 0 e 1.</li>
-                        <li><strong>Hexadecimal (Base 16):</strong> Símbolos 0-9 e A-F (A=10, B=11, C=12, D=13, E=14, F=15). Cada dígito Hex equivale exatamente a 4 bits.</li>
-                        <li><strong>Transistor MOSFET:</strong> Funciona como chave eletrônica (Aberto = 0, Fechado = 1) para construção das portas lógicas (AND, OR, NOT, NAND, NOR, XOR).</li>
-                    </ul>
-                `,
-                questions: [
-                    {
-                        q: "Quantos bits do sistema binário são necessários para representar exatamente um único dígito Hexadecimal?",
-                        opts: ["2 bits", "4 bits", "8 bits", "16 bits"],
-                        correct: 1,
-                        exp: "Como 2^4 = 16, cada dígito hexadecimal é perfeitamente representado por um grupo de 4 bits (nibble)."
-                    },
-                    {
-                        q: "O valor hexadecimal 'F' equivale a qual valor na base decimal?",
-                        opts: ["10", "12", "15", "16"],
-                        correct: 2,
-                        exp: "Em Hexadecimal: A=10, B=11, C=12, D=13, E=14 e F=15."
-                    },
-                    {
-                        q: "Qual porta lógica produz saída '1' (VERDADEIRO) se e somente se TODAS as suas entradas forem '1'?",
-                        opts: ["Porta OR", "Porta AND", "Porta NOT", "Porta XOR"],
-                        correct: 1,
-                        exp: "A porta AND (E) exige que todas as entradas sejam verdadeiras para acionar a saída."
-                    },
-                    {
-                        q: "O transistor atua nos circuitos digitais computacionais primariamente desempenhando o papel de:",
-                        opts: ["Amplificador de som estéreo", "Uma chave eletrônica operando no estado de corte (0) e saturação (1)", "Um disco de gravação magnética", "Um gerador de luz infravermelha"],
-                        correct: 1,
-                        exp: "No mundo digital, o transistor atua como chave aberta (0) ou fechada (1) para representar estados lógicos."
-                    },
-                    {
-                        q: "A conversão do número binário 1010_2 para decimal resulta em:",
-                        opts: ["8", "10", "12", "14"],
-                        correct: 1,
-                        exp: "1*8 + 0*4 + 1*2 + 0*1 = 8 + 2 = 10_10."
+                        exp: "Memórias voláteis dependem de energia para manter as informações salvas."
                     }
                 ]
             }
         ];
 
-        // BANCO DE 20 EXERCÍCIOS DE MEMÓRIA (TODOS COM DADOS E RESOLUÇÃO)
         const mathExercises = [
-            { cm: "4 GB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 4 GB = 2^32 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^32 / 2^1 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "8 GB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 8 GB = 2^33 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^33 / 2^2 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 32? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "16 GB", cc: "64 bits (8 Bytes)", exp: "1) Cm = 16 GB = 2^34 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^34 / 2^3 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "2 GB", cc: "8 bits (1 Byte)", exp: "1) Cm = 2 GB = 2^31 B\n2) Cc = 1 B = 2^0 B\n3) Nc = 2^31 / 2^0 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 8? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "1 GB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 1 GB = 2^30 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^30 / 2^1 = 2^29 células => x = 29 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 29 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "512 MB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 512 MB = 2^29 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^29 / 2^2 = 2^27 células => x = 27 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 27 <= 32? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "256 MB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 256 MB = 2^28 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^28 / 2^1 = 2^27 células => x = 27 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 27 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "32 GB", cc: "64 bits (8 Bytes)", exp: "1) Cm = 32 GB = 2^35 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^35 / 2^3 = 2^32 células => x = 32 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 32 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "64 GB", cc: "64 bits (8 Bytes)", exp: "1) Cm = 64 GB = 2^36 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^36 / 2^3 = 2^33 células => x = 33 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 33 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "128 MB", cc: "8 bits (1 Byte)", exp: "1) Cm = 128 MB = 2^27 B\n2) Cc = 1 B = 2^0 B\n3) Nc = 2^27 / 2^0 = 2^27 células => x = 27 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 27 <= 8? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "2 TB", cc: "64 bits (8 Bytes)", exp: "1) Cm = 2 TB = 2^41 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^41 / 2^3 = 2^38 células => x = 38 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 38 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "4 TB", cc: "128 bits (16 Bytes)", exp: "1) Cm = 4 TB = 2^42 B\n2) Cc = 16 B = 2^4 B\n3) Nc = 2^42 / 2^4 = 2^38 células => x = 38 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 38 <= 128? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "16 MB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 16 MB = 2^24 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^24 / 2^2 = 2^22 células => x = 22 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 22 <= 32? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "8 MB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 8 MB = 2^23 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^23 / 2^1 = 2^22 células => x = 22 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 22 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "1024 GB (1 TB)", cc: "64 bits (8 Bytes)", exp: "1) Cm = 1 TB = 2^40 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^40 / 2^3 = 2^37 células => x = 37 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 37 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "64 MB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 64 MB = 2^26 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^26 / 2^1 = 2^25 células => x = 25 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 25 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "128 GB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 128 GB = 2^37 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^37 / 2^2 = 2^35 células => x = 35 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 35 <= 32? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
-            { cm: "256 GB", cc: "64 bits (8 Bytes)", exp: "1) Cm = 256 GB = 2^38 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^38 / 2^3 = 2^35 células => x = 35 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 35 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "512 GB", cc: "64 bits (8 Bytes)", exp: "1) Cm = 512 GB = 2^39 B\n2) Cc = 8 B = 2^3 B\n3) Nc = 2^39 / 2^3 = 2^36 células => x = 36 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 36 <= 64? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
-            { cm: "1 TB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 1 TB = 2^40 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^40 / 2^2 = 2^38 células => x = 38 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 38 <= 32? NÃO!\nConclusão: A memória NÃO FUNCIONA." }
+            { cm: "4 GB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 4 GB = 2^32 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^32 / 2^1 = 2^31 células => x = 31 bits.\n4) Teste (x <= Cc em bits): 31 <= 16? NÃO! A memória NÃO FUNCIONA." },
+            { cm: "8 GB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 8 GB = 2^33 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^33 / 2^2 = 2^31 células => x = 31 bits.\n4) Teste (x <= Cc em bits): 31 <= 32? SIM! A memória FUNCIONA." }
         ];
 
         const hexExercises = [
-            { q: "Dado o número Hexadecimal C8_16, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) C8_16 = Grupo C (1100_2) e Grupo 8 (1000_2) = 11001000_2.\n2) Soma Decimal = 128 + 64 = 200_10." },
-            { q: "Dado o número Hexadecimal 20_16, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) 20_16 = Grupo 2 (0010_2) e Grupo 0 (0000_2) = 00100000_2.\n2) Soma Decimal = 32_10." },
-            { q: "Dado o número Decimal 246_10, preencha os bits na tabela e determine o valor em Hexadecimal.", exp: "1) 246_10 = 128 + 64 + 32 + 16 + 4 + 2 = 11110110_2.\n2) Agrupando de 4 em 4: 1111_2 (F) e 0110_2 (6) => F6_16." },
-            { q: "Dado o número Hexadecimal 2F_16, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) 2F_16 = Grupo 2 (0010_2) e Grupo F (1111_2) = 00101111_2.\n2) Soma Decimal = 32 + 8 + 4 + 2 + 1 = 47_10." }
+            { q: "Dado o número Hexadecimal C8_16, determine o valor em Decimal.", exp: "C8_16 = 11001000_2 = 128 + 64 = 200_10." }
         ];
 
         let currentModuleIndex = 0;
@@ -1452,7 +1051,7 @@
             const container = document.getElementById('math-exercises-container');
             container.innerHTML = mathExercises.map((ex, i) => `
                 <div class="ex-item">
-                    <p style="font-weight:bold; color:#fff;">Exercício ${i+1}: Sabendo que Cm = ${ex.cm} e Cc = ${ex.cc}, determine o número de bits de endereço (x) e verifique se a memória funciona.</p>
+                    <p style="font-weight:bold; color:#fff;">Exercício ${i+1}: Sabendo que Cm = ${ex.cm} e Cc = ${ex.cc}, determine o número de bits de endereço e se funciona.</p>
                     <button class="btn" onclick="toggleAns('math-ex-${i}')">Ver Resolução Passo a Passo</button>
                     <div id="math-ex-${i}" style="display:none;" class="math-box">${ex.exp}</div>
                 </div>

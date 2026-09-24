@@ -296,7 +296,7 @@
             font-weight: 800;
         }
         
-        .-g0 { background-color: #bef264; color: black; font-weight: bold; }
+        .hex-g0 { background-color: #bef264; color: black; font-weight: bold; }
         .hex-g1 { background-color: var(--green-light); color: black; font-weight: bold; }
         .hex-g2 { background-color: var(--green-medium); color: black; font-weight: bold; }
         .hex-g3 { background-color: var(--green-dark); color: white; font-weight: bold; }
@@ -512,7 +512,7 @@
             </svg>
             <div>
                 <h1>⚡ ADS Prep</h1>
-                <div class="brand-sub">Eduardo Azevedo · Fatec</div>
+                <div class="brand-sub">Eduxds2 · Fatec</div>
             </div>
         </div>
 
@@ -593,7 +593,7 @@
                 <ul>
                     <li><strong>Cm (Capacidade Total de Memória):</strong> Representa o volume total de dados que o circuito de memória consegue armazenar de uma só vez. É medido em Bytes ou submúltiplos com prefixos binários (KB, MB, GB, TB). <br><em>Exemplo: Cm = 4 GB (4 Gigabytes).</em></li>
                     <li><strong>Cc (Capacidade da Célula / Célula de Memória):</strong> É a menor unidade individual de armazenamento acessível por um único endereço. Corresponde à quantidade de bits contida em cada linha/palavra da memória. É medida em bits ou Bytes. <br><em>Exemplo: Cc = 16 bits (que equivale a 2 Bytes).</em></li>
-                    <li><strong>Nc (Número Total de Células):</strong> É a quantidade total de gavetas ou posições de memória individuais disponíveis. É calculado sempre em potência de base 2. <br><em>Fórmula: Nc = 2^x ou Nc = Cm / Cc.</em></li>
+                    <li><strong>Nc (Número Total de Células):</strong> É a quantidade total de gavetas ou posições de memória individuais disponíveis. É calculated sempre em potência de base 2. <br><em>Fórmula: Nc = 2^x ou Nc = Cm / Cc.</em></li>
                     <li><strong>x (Barramento de Endereços / Bits de Endereçamento):</strong> É a quantidade física de linhas de sinal elétrico no barramento de endereços. Determina diretamente quantas células diferentes a CPU consegue mapear e alcançar. <br><em>Exemplo: Se x = 32 bits, o sistema consegue desempenhar até 2^32 combinações únicas.</em></li>
                 </ul>
             </div>
@@ -641,7 +641,7 @@
             <div class="header-box">
                 <div>
                     <h2>Prancheta de Conversão (Estilo Caderno)</h2>
-                    <p style="color:var(--text-muted);">Potências de 4096 até 1, com colunas DEC e HEX nas extremidades direitas.</p>
+                    <p style="color:var(--text-muted);">HEX à esquerda, potências no topo para Decimal, grupos no rodapé e DEC à direita.</p>
                 </div>
             </div>
             <div class="card">
@@ -688,14 +688,18 @@
                 <table class="table-hex" id="free-practice-table">
                     <thead>
                         <tr>
+                            <!-- HEX À ESQUERDA -->
+                            <th style="background-color: #0284c7; color: white;">HEX</th>
+                            <!-- POTÊNCIAS DE BASE 2 NO TOPO (DECIMAL) -->
                             <th>4096</th><th>2048</th><th>1024</th><th>512</th><th>256</th><th>128</th><th>64</th><th>32</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th>
-                            <th>DEC</th>
-                            <th>HEX</th>
+                            <!-- DEC À DIREITA -->
+                            <th style="background-color: #0284c7; color: white;">DEC</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- LINHA 1 DE ENTRADA -->
                         <tr class="input-row">
+                            <td><input type="text" class="hex-field" placeholder="HEX" maxlength="4"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
@@ -710,10 +714,10 @@
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="dec-field" placeholder="DEC"></td>
-                            <td><input type="text" class="hex-field" placeholder="HEX"></td>
                         </tr>
                         <!-- LINHA 2 DE ENTRADA -->
                         <tr class="input-row">
+                            <td><input type="text" class="hex-field" placeholder="HEX" maxlength="4"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
@@ -728,10 +732,10 @@
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="dec-field" placeholder="DEC"></td>
-                            <td><input type="text" class="hex-field" placeholder="HEX"></td>
                         </tr>
                         <!-- LINHA 3 DE ENTRADA -->
                         <tr class="input-row">
+                            <td><input type="text" class="hex-field" placeholder="HEX" maxlength="4"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
@@ -746,10 +750,10 @@
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="bin-input" maxlength="1" oninput="validateBinInput(this)"></td>
                             <td><input type="text" class="dec-field" placeholder="DEC"></td>
-                            <td><input type="text" class="hex-field" placeholder="HEX"></td>
                         </tr>
                         <!-- RODAPÉ DE GRUPOS HEX -->
                         <tr>
+                            <td style="background:#0284c7; color:#fff; font-weight:bold;">Grupos HEX</td>
                             <td class="hex-g0">1</td>
                             <td class="hex-g1">8</td>
                             <td class="hex-g1">4</td>
@@ -763,7 +767,6 @@
                             <td class="hex-g3">4</td>
                             <td class="hex-g3">2</td>
                             <td class="hex-g3">1</td>
-                            <td style="background:#0284c7; color:#fff; font-weight:bold;">Grupos HEX</td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -1038,7 +1041,7 @@
                     rowIsValid = false;
                 }
 
-                // 5. Destaca os bits binários (verde se tudo ok, vermelho se houver erro na linha)
+                // 5. Destaca os bits binários
                 binInputs.forEach(b => {
                     if (b.value.trim() === '0' || b.value.trim() === '1') {
                         if (rowIsValid) b.classList.add('field-correct');
@@ -1355,7 +1358,7 @@
             }
         ];
 
-        // BANCO DE 20 EXERCÍCIOS DE MEMÓRIA (TODOS COM DADOS E RESOLUÇÃO)
+        // BANCO DE 20 EXERCÍCIOS DE MEMÓRIA
         const mathExercises = [
             { cm: "4 GB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 4 GB = 2^32 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^32 / 2^1 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
             { cm: "8 GB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 8 GB = 2^33 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^33 / 2^2 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 32? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },

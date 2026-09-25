@@ -112,6 +112,45 @@
             gap: 6px;
         }
 
+        /* ACORDEÃO / MATÉRIA COLAPSÁVEL */
+        .subject-header {
+            font-size: 0.8rem;
+            color: var(--accent-purple);
+            font-weight: bold;
+            margin-bottom: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 8px;
+            background: rgba(157, 78, 221, 0.08);
+            border-radius: 6px;
+            border: 1px solid rgba(157, 78, 221, 0.2);
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .subject-header:hover {
+            background: rgba(157, 78, 221, 0.18);
+            color: #fff;
+        }
+
+        .subject-arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .subject-content {
+            display: block;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+        }
+
+        .subject-content.collapsed {
+            display: none;
+        }
+
         nav button {
             width: 100%;
             background: none;
@@ -515,7 +554,7 @@
             </svg>
             <div>
                 <h1>⚡ ADS Prep</h1>
-                <div class="brand-sub">Eduxds2 · Fatec · V.1.4</div>
+                <div class="brand-sub">Eduxds2 · Fatec · V.1.5</div>
             </div>
         </div>
 
@@ -526,22 +565,38 @@
             <!-- PROFESSOR AMORIM -->
             <div class="teacher-group">
                 <div class="teacher-title">👨‍🏫 Prof. Rodrigo Amorim</div>
-                <div style="font-size:0.75rem; color:var(--accent-purple); font-weight:bold; margin-bottom:4px;">💻 Arquitetura de Computadores</div>
-                <button class="active" onclick="switchMainTab('teoria', this)">📖 Teoria & Questões MCQ</button>
-                <button onclick="switchMainTab('matematica', this)">📐 Matemática e Contas de Memória</button>
-                <button onclick="switchMainTab('simulado-20', this)">📝 Simulado 20 Exercícios</button>
-                <button onclick="switchMainTab('tabela-hex', this)">🔢 Tabela Caderno HEX / BIN / DEC</button>
-                <button onclick="switchMainTab('circuitos', this)">🔌 Circuitos Lógicos</button>
-                <button onclick="switchMainTab('discursivas', this)">✍️ Prova Real Discursiva</button>
+                
+                <!-- TITULO DA MATERIA COM ACORDEAO -->
+                <div class="subject-header" onclick="toggleSubject('content-amorim', 'arrow-amorim')">
+                    <span>💻 Arquitetura de Computadores</span>
+                    <span class="subject-arrow" id="arrow-amorim">▼</span>
+                </div>
+                
+                <div class="subject-content" id="content-amorim">
+                    <button class="active" onclick="switchMainTab('teoria', this)">📖 Teoria & Questões MCQ</button>
+                    <button onclick="switchMainTab('matematica', this)">📐 Matemática e Contas de Memória</button>
+                    <button onclick="switchMainTab('simulado-20', this)">📝 Simulado 20 Exercícios</button>
+                    <button onclick="switchMainTab('tabela-hex', this)">🔢 Tabela Caderno HEX / BIN / DEC</button>
+                    <button onclick="switchMainTab('circuitos', this)">🔌 Circuitos Lógicos</button>
+                    <button onclick="switchMainTab('discursivas', this)">✍️ Prova Real Discursiva</button>
+                </div>
             </div>
 
             <!-- PROFESSORA RAQUEL -->
             <div class="teacher-group">
                 <div class="teacher-title">👩‍🏫 Profª. Raquel</div>
-                <div style="font-size:0.75rem; color:var(--accent-purple); font-weight:bold; margin-bottom:4px;">💬 Comunicação & Expressão</div>
-                <button onclick="switchMainTab('com-teoria', this)">📖 Teoria das 8 Unidades</button>
-                <button onclick="switchMainTab('com-atv1', this)">📝 Atv 1: Parônimos/Homônimos</button>
-                <button onclick="switchMainTab('com-atv2', this)">📄 Atv 2: Escrita Língua Natural</button>
+                
+                <!-- TITULO DA MATERIA COM ACORDEAO -->
+                <div class="subject-header" onclick="toggleSubject('content-raquel', 'arrow-raquel')">
+                    <span>💬 Comunicação & Expressão</span>
+                    <span class="subject-arrow" id="arrow-raquel">▼</span>
+                </div>
+
+                <div class="subject-content" id="content-raquel">
+                    <button onclick="switchMainTab('com-teoria', this)">📖 Teoria das 8 Unidades</button>
+                    <button onclick="switchMainTab('com-atv1', this)">📝 Atv 1: Parônimos/Homônimos</button>
+                    <button onclick="switchMainTab('com-atv2', this)">📄 Atv 2: Escrita Língua Natural</button>
+                </div>
             </div>
         </nav>
 
@@ -1008,6 +1063,20 @@
     </main>
 
     <script>
+        /* FUNÇÃO DE ACORDEÃO (EXPANDIR/RECOLHER MATÉRIAS) */
+        function toggleSubject(contentId, arrowId) {
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById(arrowId);
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('collapsed');
+                arrow.textContent = '▲';
+            }
+        }
+
         /* NAVEGAÇÃO PRINCIPAL */
         function switchMainTab(tab, btn) {
             document.querySelectorAll('aside nav button').forEach(b => b.classList.remove('active'));
@@ -1430,7 +1499,7 @@
                     {
                         q: "O Acumulador (ACC) é um registrador especial que atua da seguinte forma no processador:",
                         opts: [
-                            "Armazena diretamente a instrução seguinte que deverá ser trazida da RAM para garantir a execução sem interrupções", 
+                            "Armazenar diretamente a instrução seguinte que deverá ser trazida da RAM para garantir a execução sem interrupções", 
                             "Guarda de forma implícita um dos operandos e o resultado imediato gerado pelas operações executadas na ULA", 
                             "Mapeia todos os periféricos de entrada e saída conectados às portas externas do barramento de comunicação rápida", 
                             "Sincroniza a frequência dos impulsos elétricos enviados pelo gerador de clock para os circuitos lógicos internos"
@@ -1757,7 +1826,7 @@
                     {
                         q: "A filosofia de projeto CISC (Complex Instruction Set Computer) tem como meta principal:",
                         opts: [
-                            "Manter instruções extremamente simples para exigir que o compilador gera arquivos binários maiores e detalhados", 
+                            "Manter instruções extremamente simples para exigir que o compilador gere arquivos binários maiores e detalhados", 
                             "Prover um conjunto rico e amplo de instruções para reduzir a quantidade de linhas de código assembly necessárias", 
                             "Garantir que todas as instruções tenham o mesmo tamanho em bits e levem exatamente o mesmo tempo de execução", 
                             "Forçar o uso exclusivo de arquiteturas do tipo Load/Store onde a RAM só é acessada por dois comandos específicos"

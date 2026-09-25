@@ -77,9 +77,11 @@
         }
 
         .brand-sub {
-            font-size: 0.7rem;
-            color: var(--text-muted);
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 700;
             margin-top: 2px;
+            letter-spacing: 0.5px;
         }
 
         .semester-header {
@@ -513,7 +515,7 @@
             </svg>
             <div>
                 <h1>⚡ ADS Prep</h1>
-                <div class="brand-sub">Eduxds2 · Fatec · V.1.4 </div>
+                <div class="brand-sub">Eduxds2 · Fatec · V.1.4</div>
             </div>
         </div>
 
@@ -1345,8 +1347,17 @@
                     <ul>
                         <li><strong>Unidade de Controle (UC):</strong> Busca as instruções na memória, decodifica o código de operação (OPCODE) e coordena o fluxo de dados e sinais de controle internos e externos.</li>
                         <li><strong>Unidade Lógica e Aritmética (ULA):</strong> Realiza as operações matemáticas (soma, subtração) e lógicas (AND, OR, NOT, deslocamentos).</li>
-                        <li><strong>Registradores:</strong> Células de memória interna de altíssima velocidade para armazenamento temporário. Dividem-se em uso geral e uso específico (ex: <strong>CI/CP</strong> - Contador de Instrução/Programa, <strong>RI</strong> - Registrador de Instrução, <strong>REM</strong> - Registrador de Endereço de Memória, <strong>RDM</strong> - Registrador de Dados de Memória e <strong>ACC</strong> - Acumulador).</li>
-                        <li><strong>Clock (Relógio de Sinal):</strong> Circuito oscilador que gera pulsos elétricos para sincronizar o sequenciamento de operações da CPU.</li>
+                        <li>
+                            <strong>Registradores:</strong> Células de memória interna de altíssima velocidade para armazenamento temporário. Dividem-se em uso geral e uso específico:
+                            <ul>
+                                <li style="margin-top:6px;"><strong>CI / CP (Contador de Instrução / Program Counter):</strong> Guarda o endereço de memória da <em>próxima</em> instrução a ser buscada e executada. É incrementado automaticamente após a busca.</li>
+                                <li style="margin-top:4px;"><strong>RI (Registrador de Instrução):</strong> Armazena a instrução que está sendo <em>executada no momento</em> (o código de operação / OPCODE lido da RAM).</li>
+                                <li style="margin-top:4px;"><strong>REM (Registrador de Endereço de Memória):</strong> Armazena temporariamente o <em>endereço físico</em> da memória RAM onde a CPU deseja realizar uma leitura ou escrita. Conecta-se diretamente ao Barramento de Endereços.</li>
+                                <li style="margin-top:4px;"><strong>RDM (Registrador de Dados de Memória):</strong> Armazena temporariamente a <em>informação/dado bruto</em> que acabou de ser lido da memória ou que está prestes a ser gravado nela. Conecta-se diretamente ao Barramento de Dados.</li>
+                                <li style="margin-top:4px;"><strong>ACC (Acumulador):</strong> Armazena de forma implícita um dos operandos das operações da ULA e retém o <em>resultado imediato</em> dessas operações antes que seja transferido para outro registrador ou para a memória RAM.</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top:6px;"><strong>Clock (Relógio de Sinal):</strong> Circuito oscilador que gera pulsos elétricos para sincronizar o sequenciamento de operações da CPU.</li>
                     </ul>
                 `,
                 questions: [
@@ -1746,7 +1757,7 @@
                     {
                         q: "A filosofia de projeto CISC (Complex Instruction Set Computer) tem como meta principal:",
                         opts: [
-                            "Manter instruções extremamente simples para exigir que o compilador gere arquivos binários maiores e detalhados", 
+                            "Manter instruções extremamente simples para exigir que o compilador gera arquivos binários maiores e detalhados", 
                             "Prover um conjunto rico e amplo de instruções para reduzir a quantidade de linhas de código assembly necessárias", 
                             "Garantir que todas as instruções tenham o mesmo tamanho em bits e levem exatamente o mesmo tempo de execução", 
                             "Forçar o uso exclusivo de arquiteturas do tipo Load/Store onde a RAM só é acessada por dois comandos específicos"

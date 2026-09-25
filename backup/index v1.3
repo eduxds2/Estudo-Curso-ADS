@@ -423,7 +423,7 @@
             padding: 16px;
             border-radius: 12px;
             margin-top: 15px;
-            max-width: 280px;
+            max-width: 300px;
         }
 
         .calc-screen {
@@ -442,7 +442,7 @@
 
         .calc-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
         }
 
@@ -450,12 +450,13 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: #fff;
-            padding: 12px;
+            padding: 12px 8px;
             border-radius: 6px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
+            text-align: center;
         }
 
         .calc-btn:hover {
@@ -512,7 +513,7 @@
             </svg>
             <div>
                 <h1>⚡ ADS Prep</h1>
-                <div class="brand-sub">Eduxds2 · Fatec</div>
+                <div class="brand-sub">Eduardo Azevedo · Fatec</div>
             </div>
         </div>
 
@@ -548,10 +549,6 @@
     </aside>
 
     <main>
-        <!-- ========================================================== -->
-        <!-- 1º SEMESTRE - PROF. AMORIM - ARQUITETURA DE COMPUTADORES -->
-        <!-- ========================================================== -->
-
         <!-- TEORIA AMORIM -->
         <div id="view-teoria" class="section-view active">
             <div class="header-box">
@@ -593,7 +590,7 @@
                 <ul>
                     <li><strong>Cm (Capacidade Total de Memória):</strong> Representa o volume total de dados que o circuito de memória consegue armazenar de uma só vez. É medido em Bytes ou submúltiplos com prefixos binários (KB, MB, GB, TB). <br><em>Exemplo: Cm = 4 GB (4 Gigabytes).</em></li>
                     <li><strong>Cc (Capacidade da Célula / Célula de Memória):</strong> É a menor unidade individual de armazenamento acessível por um único endereço. Corresponde à quantidade de bits contida em cada linha/palavra da memória. É medida em bits ou Bytes. <br><em>Exemplo: Cc = 16 bits (que equivale a 2 Bytes).</em></li>
-                    <li><strong>Nc (Número Total de Células):</strong> É a quantidade total de gavetas ou posições de memória individuais disponíveis. É calculated sempre em potência de base 2. <br><em>Fórmula: Nc = 2^x ou Nc = Cm / Cc.</em></li>
+                    <li><strong>Nc (Número Total de Células):</strong> É a quantidade total de gavetas ou posições de memória individuais disponíveis. É calculado sempre em potência de base 2. <br><em>Fórmula: Nc = 2^x ou Nc = Cm / Cc.</em></li>
                     <li><strong>x (Barramento de Endereços / Bits de Endereçamento):</strong> É a quantidade física de linhas de sinal elétrico no barramento de endereços. Determina diretamente quantas células diferentes a CPU consegue mapear e alcançar. <br><em>Exemplo: Se x = 32 bits, o sistema consegue desempenhar até 2^32 combinações únicas.</em></li>
                 </ul>
             </div>
@@ -665,26 +662,33 @@
                     </div>
                 </div>
                 <p id="check-feedback" style="margin-top:10px; font-weight:600;"></p>
+                
+                <!-- CALCULADORA ATUALIZADA COM BOTÃO SUBTRAÇÃO (-) -->
                 <div id="calculator-wrapper" style="display:none;">
                     <div class="calc-box">
                         <input type="text" id="calc-display" class="calc-screen" readonly value="0">
                         <div class="calc-grid">
                             <button class="calc-btn btn-danger" onclick="clearCalc()">C</button>
                             <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+                            <button class="calc-btn op" onclick="appendCalc('-')">-</button>
                             <button class="calc-btn op" onclick="calculateResult()">=</button>
+                            
                             <button class="calc-btn" onclick="appendCalc('7')">7</button>
                             <button class="calc-btn" onclick="appendCalc('8')">8</button>
                             <button class="calc-btn" onclick="appendCalc('9')">9</button>
                             <button class="calc-btn" onclick="appendCalc('4')">4</button>
+                            
                             <button class="calc-btn" onclick="appendCalc('5')">5</button>
                             <button class="calc-btn" onclick="appendCalc('6')">6</button>
                             <button class="calc-btn" onclick="appendCalc('1')">1</button>
                             <button class="calc-btn" onclick="appendCalc('2')">2</button>
+                            
                             <button class="calc-btn" onclick="appendCalc('3')">3</button>
                             <button class="calc-btn" style="grid-column: span 3;" onclick="appendCalc('0')">0</button>
                         </div>
                     </div>
                 </div>
+
                 <table class="table-hex" id="free-practice-table">
                     <thead>
                         <tr>
@@ -821,11 +825,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- 1º SEMESTRE - PROFª. RAQUEL - COMUNICAÇÃO E EXPRESSÃO -->
-        <!-- ========================================================== -->
-
-        <!-- TEORIA RAQUEL -->
+        <!-- PROFESSORA RAQUEL -->
         <div id="view-com-teoria" class="section-view">
             <div class="header-box">
                 <div>
@@ -848,7 +848,6 @@
             </div>
         </div>
 
-        <!-- ATIVIDADE 1 RAQUEL -->
         <div id="view-com-atv1" class="section-view">
             <div class="header-box">
                 <div>
@@ -908,7 +907,6 @@
             </div>
         </div>
 
-        <!-- ATIVIDADE 2 RAQUEL -->
         <div id="view-com-atv2" class="section-view">
             <div class="header-box">
                 <div>
@@ -987,33 +985,28 @@
                 const decInput = row.querySelector('.dec-field');
                 const binInputs = Array.from(row.querySelectorAll('.bin-input'));
 
-                // Limpa classes anteriores
                 [hexInput, decInput, ...binInputs].forEach(el => el.classList.remove('field-correct', 'field-wrong'));
                 
                 const binValues = binInputs.map(b => b.value.trim());
                 const hexVal = hexInput.value.trim().toUpperCase();
                 const decVal = decInput.value.trim();
 
-                // Se a linha estiver inteiramente vazia, pula
                 if (!binValues.some(v => v !== '') && !hexVal && !decVal) return;
 
                 totalFilled++;
                 let rowIsValid = true;
 
-                // 1. Calcula o decimal real baseado nos bits inseridos
                 let decFromBits = 0;
                 binValues.forEach((v, i) => {
                     if (v === '1') decFromBits += weights[i];
                 });
 
-                // 2. Validação se há caracteres inválidos nos binários
                 let hasBinError = binValues.some(v => v !== '' && v !== '0' && v !== '1');
                 if (hasBinError) {
                     binInputs.forEach(b => { if(b.value.trim() !== '0' && b.value.trim() !== '1') b.classList.add('field-wrong'); });
                     rowIsValid = false;
                 }
 
-                // 3. Validação do campo Decimal
                 if (decVal !== '') {
                     const parsedDec = parseInt(decVal, 10);
                     if (parsedDec === decFromBits) {
@@ -1027,7 +1020,6 @@
                     rowIsValid = false;
                 }
 
-                // 4. Validação do campo Hexadecimal
                 let expectedHex = decFromBits.toString(16).toUpperCase();
                 if (hexVal !== '') {
                     if (hexVal === expectedHex) {
@@ -1041,7 +1033,6 @@
                     rowIsValid = false;
                 }
 
-                // 5. Destaca os bits binários
                 binInputs.forEach(b => {
                     if (b.value.trim() === '0' || b.value.trim() === '1') {
                         if (rowIsValid) b.classList.add('field-correct');
@@ -1072,17 +1063,34 @@
 
         function appendCalc(val) {
             const display = document.getElementById('calc-display');
-            if (display.value === '0' && val !== '+') display.value = val;
+            if (display.value === '0' && val !== '+' && val !== '-') display.value = val;
             else display.value += val;
         }
 
         function clearCalc() { document.getElementById('calc-display').value = '0'; }
 
+        /* Lógica de cálculo atualizada para somar e subtrair */
         function calculateResult() {
             const display = document.getElementById('calc-display');
             try {
-                const sum = display.value.split('+').reduce((acc, curr) => acc + (parseFloat(curr) || 0), 0);
-                display.value = sum;
+                let expression = display.value;
+                let tokens = expression.match(/(\d+|\+|-)/g);
+                if (!tokens) return;
+                
+                let total = 0;
+                let currentOp = '+';
+                
+                for (let i = 0; i < tokens.length; i++) {
+                    let token = tokens[i];
+                    if (token === '+' || token === '-') {
+                        currentOp = token;
+                    } else {
+                        let num = parseFloat(token);
+                        if (currentOp === '+') total += num;
+                        else if (currentOp === '-') total -= num;
+                    }
+                }
+                display.value = total;
             } catch (e) { display.value = 'Erro'; }
         }
 
@@ -1090,7 +1098,6 @@
             input.value = input.value.replace(/[^01]/g, '');
         }
 
-        // MÓDULOS TEÓRICOS AMORIM COM MÍNIMO 5 QUESTÕES MCQ CADA
         const modules = [
             {
                 title: '1. Unidade Central de Processamento (UCP), Arquiteturas & Ciclo de Instrução',
@@ -1208,7 +1215,7 @@
                         q: "Os SSDs utilizam qual tipo de tecnologia de memória não volátil para armazenar os arquivos permanentemente?",
                         opts: ["DRAM com capacitor", "Memória Flash NAND", "Platos Magnéticos", "Células SRAM estáticas"],
                         correct: 1,
-                        exp: "A memória Flash NAND retém os elétrons nas células mesmo sem energia elétrica aplicada."
+                        exp: "A memória Flash NAND retém os elétrons nas células mesmo sem energia elétrica applied."
                     },
                     {
                         q: "Em termos de consumo de energia e ruído operacional, pode-se afirmar sobre os SSDs que:",
@@ -1358,7 +1365,6 @@
             }
         ];
 
-        // BANCO DE 20 EXERCÍCIOS DE MEMÓRIA
         const mathExercises = [
             { cm: "4 GB", cc: "16 bits (2 Bytes)", exp: "1) Cm = 4 GB = 2^32 B\n2) Cc = 2 B = 2^1 B\n3) Nc = 2^32 / 2^1 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 16? NÃO!\nConclusão: A memória NÃO FUNCIONA." },
             { cm: "8 GB", cc: "32 bits (4 Bytes)", exp: "1) Cm = 8 GB = 2^33 B\n2) Cc = 4 B = 2^2 B\n3) Nc = 2^33 / 2^2 = 2^31 células => x = 31 bits de endereço.\n4) Teste obrigatório (x <= Cc em bits): 31 <= 32? SIM!\nConclusão: A memória FUNCIONA PERFEITAMENTE." },
@@ -1383,10 +1389,10 @@
         ];
 
         const hexExercises = [
-            { q: "Dado o número Hexadecimal C8, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) C8 = Grupo C (1100_2) e Grupo 8 (1000_2) = 11001000_2.\n2) Soma Decimal = 128 + 64 = 200." },
-            { q: "Dado o número Hexadecimal 20, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) 20 = Grupo 2 (0010_2) e Grupo 0 (0000_2) = 00100000_2.\n2) Soma Decimal = 32." },
-            { q: "Dado o número Decimal 246, preencha os bits na tabela e determine o valor em Hexadecimal.", exp: "1) 246 = 128 + 64 + 32 + 16 + 4 + 2 = 11110110_2.\n2) Agrupando de 4 em 4: 1111_2 (F) e 0110_2 (6) => F6." },
-            { q: "Dado o número Hexadecimal 2F, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) 2F = Grupo 2 (0010_2) e Grupo F (1111_2) = 00101111_2.\n2) Soma Decimal = 32 + 8 + 4 + 2 + 1 = 47." }
+            { q: "Dado o número Hexadecimal C8_16, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) C8_16 = Grupo C (1100_2) e Grupo 8 (1000_2) = 11001000_2.\n2) Soma Decimal = 128 + 64 = 200_10." },
+            { q: "Dado o número Hexadecimal 20_16, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) 20_16 = Grupo 2 (0010_2) e Grupo 0 (0000_2) = 00100000_2.\n2) Soma Decimal = 32_10." },
+            { q: "Dado o número Decimal 246_10, preencha os bits na tabela e determine o valor em Hexadecimal.", exp: "1) 246_10 = 128 + 64 + 32 + 16 + 4 + 2 = 11110110_2.\n2) Agrupando de 4 em 4: 1111_2 (F) e 0110_2 (6) => F6_16." },
+            { q: "Dado o número Hexadecimal 2F_16, preencha os bits na tabela e determine o valor em Decimal.", exp: "1) 2F_16 = Grupo 2 (0010_2) e Grupo F (1111_2) = 00101111_2.\n2) Soma Decimal = 32 + 8 + 4 + 2 + 1 = 47_10." }
         ];
 
         let currentModuleIndex = 0;
